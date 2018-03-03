@@ -1,0 +1,5 @@
+<li>The following have prevented the record from being saved</li>
+<%@link.errors.full_messages.each do |msg|%>
+  <%binding.pry%>
+  <li><%=msg%></li>
+<%end%>
