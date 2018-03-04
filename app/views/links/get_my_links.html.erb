@@ -1,0 +1,18 @@
+<%@links.each do |lin|%>
+   <table>
+   	  <thead>
+   	  	<tr>
+   	  		<th>LINK NAME</th>
+   	  		<th>ENCODED LINK</th>
+   	  		<th>LINK CLICK COUNT</th>
+   	  	</tr>
+   	  </thead>
+   	  <tbody>
+   	  	 <tr>
+   	  	 	<td><%= link_to lin.link_name%></td>
+   	  	 	<td><%= link_to lin.encoded_link, "/#{lin.encoded_link}"%></td>
+   	  	 	<td><%= lin.link_click_count%> </td>
+   	  	 </tr> 
+   	  </tbody>
+   </table>
+<%end%>

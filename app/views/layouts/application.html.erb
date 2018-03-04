@@ -7,20 +7,37 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= link_to "New Url", new_link_path%>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <% if(user_signed_in?)%>
-      <%= link_to "LOGOUT",destroy_user_session_path,method: :delete%>||
-      <%= link_to "ACCOUNT SETTING",edit_user_registration_path%>
-    <%else%>
-      <%= link_to "LOGIN",new_user_session_path%>
-      <%= link_to "REGISTER",new_user_registration_path%>
-    <%end%>
+    <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/bootstrap.bundle.js"></script>
+
+    <link href = "/stylesheets/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href = "/stylesheets/bootstrap-grid.css" rel="stylesheet" type="text/css"/>
+    <link href = "/stylesheets/bootstrap-reboot.css" rel="stylesheet" type="text/css"/>    
   </head>
  
   <body>
-  	<p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  	<%= yield %>
+        <% if(user_signed_in?)%> 
+        <%= link_to "LOGOUT",destroy_user_session_path,method: :delete%>||
+        <%= link_to "ACCOUNT SETTING",edit_user_registration_path%>
+        <%else%>
+        <%= link_to "LOGIN",new_user_session_path%>
+        <%= link_to "REGISTER",new_user_registration_path%>
+        <%end%>
+   <div class= "row"> 
+     <div class = "container">
+       <div class = "col-md-12"> 
+           <p class="notice"><%= notice %></p>
+           <p class="alert"><%= alert%></p>
+  	       <%= render 'layouts/nav'%>  
+           <%= render 'layouts/slider'%>
+       </div>
+       <%= yield %>
+       <strong>Watch a demo</strong>
+       <iframe width="200" height="100" src="https://www.youtube.com/embed/s4g8jLCCxIc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>     
+     </div>
+  </div>
   </body>
 
 </html>

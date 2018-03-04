@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
    get '/:encoded_link', to: 'links#show'
+   get 'links/get_my_links'
   resources :operating_systems
   devise_for :users
-  resources :links
+  resources :links do
+  	resources :logs
+  end
+  resources :links	
   resources :user_links
   resources :logs
   resources :devices 

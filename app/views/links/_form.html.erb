@@ -2,58 +2,87 @@
 </div>  
 <div id = linkErrors>
 </div>  
-<%=form_for(@link,remote: true) do |f|%> 
+
+<%=form_for(@link,remote: true,id: "new_link") do |f|%> 
 <%= f.label :name %>
-  <div class="form-group">
-    <%= f.text_field :link_name,id: :link_link_name,class: "form-control" %>
-    <span id="linkNameError"></span>  
-  </div>
-  <%= f.hidden_field :encoded_link,value: ""%>
-  <%= f.submit "Submit the link", id:"submit_link_details"%>
-<% end%>
-<div class="current_user_link_list">
-    <%current_user.links.each do |link|%>
-         <li> <%= link_to link.link_name,"/#{link.encoded_link}"%></li>
-              <%= link_to "DELETE",link_path(link.id),method: :delete,remote: true%></li>
-    <%end%>
+<div class="form-group">
+  <%= f.text_field :link_name,id: :link_link_name,class: "form-control" %>
+  <span id="linkNameError"></span>  
 </div>
 
+<%= f.hidden_field :encoded_link,value: ""%>
+<%= f.submit "SHORTEN", id:"submit_link_details"%>
+<% end%>
+
+<table border ="2">
+  <strong>Your LINKS</strong>
+  <thead>
+    <tr>
+      <th>LINK</th>
+      <th>ENCODED lINK</th>
+      <th>LINK CLICK COUNT</th>
+      <th>DELETE THE LINK</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%current_user.links.each do |link|%>
+    <tr>
+     <td><%= link_to link.link_name.truncate(40),"/#{link.encoded_link}"%></td>
+     <td><%= link_to link.encoded_link,"/#{link.encoded_link}"%></td>
+     <td><%= link.link_click_count %></td>
+     <td><%= link_to "DELETE", link_path(link.id), method: :delete%></td>
+   </tr>
+   <%end%>  
+ </tbody> 
+</table>
+
+<%=link_to "BACK", "/"%>
+<div class="current_user_link_list">
+</div>
+
+
 <script>
-	linkNameHandle= document.getElementById('link_link_name');
-	var linkRegex = /^(ftp|http|https):\/\/[^ "]+$/ ;
-    var linkNameErrorHandle = document.getElementById('linkNameError');
-    var validator = {
-        linkNameValid: false 
-    }
-    var submitHandle = document.getElementById('submit_link_details');
+ linkNameHandle= document.getElementById('link_link_name');
+ var linkRegex = /^(ftp|http|https):\/\/[^ "]+$/ ;
+ var linkNameErrorHandle = document.getElementById('linkNameError');
+ var validator = {
+  linkNameValid: false 
+}
+var submitHandle = document.getElementById('submit_link_details');
+var formHandle = document.getElementById('new_link')
 
-    linkNameHandle.addEventListener('blur',function(){
-    if(linkNameHandle.value === ""){
-       linkNameErrorHandle.innerHTML = "the link can't be left be blank";
-       validator.linkNameValid = false;
-    }
-    else{
-       if(linkRegex.test(linkNameHandle.value)){
-          linkNameErrorHandle.innerHTML = "this is a valid url";
-          validator.linkNameValid = true;
-       }
-       else{
-       	  linkNameErrorHandle.innerHTML = "this is an invalid url";
-          validator.linkNameValid = false;
-       }
-    }
-    },false)
+linkNameHandle.addEventListener('blur',function(){
+  if(linkNameHandle.value === ""){
+   linkNameErrorHandle.innerHTML = "the link can't be left be blank";
+   $('#link_link_name')[0].className="form-control is-invalid"
+   validator.linkNameValid = false;
+ }
+ else{
+   if(linkRegex.test(linkNameHandle.value)){
+    linkNameErrorHandle.innerHTML = "this is a valid url";
+    $('#link_link_name')[0].className="form-control is-valid"
+    validator.linkNameValid = true;
+    linkNameErrorHandle.innerHTML = "";
+  }
+  else{
+    linkNameErrorHandle.innerHTML = "this is an invalid url";
+    linkNameHandle.className="form-control is-invalid";    validator.linkNameValid = false;
+  }
+}
+},false)
 
-    submitHandle.addEventListener('submit',function(event){
-       if(Object.values(validator.includes(false))){
-           event.preventDefault();
-
-           setTimeout(function(){
-           	  submitHandle.disabled = false;
-           },5000)
-       }
-       else{
-                 
-       }
-    },false)
+submitHandle.addEventListener('submit',function(event){
+ if(Object.values(validator).includes(false)){
+   console.log(validator);
+   console.log(event);
+   event.preventDefault();
+   setTimeout(function(){
+    submitHandle.disabled = false;
+  },5000) 
+ }
+ else{
+    formHandle.reset();
+    linkNameErrorHandle.innerHTML = "";
+ }
+},false)
 </script>

@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :authenticate_user!,except: [:new]
+  before_action :authenticate_user!
   def new
   	 @link = Link.new
   end
@@ -62,7 +62,12 @@ class LinksController < ApplicationController
        binding.pry
        @link=Link.find(params[:encoded_link])
        redirect_to @link.encoded_link
-   end	   
+   end
+
+   def get_my_links
+       binding.pry
+       @links=Link.where(user_id: current_user.id)
+   end    	   
 end
 private 
   def link_params

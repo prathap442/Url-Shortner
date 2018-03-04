@@ -5,17 +5,18 @@
        	 <th>LINK CLICK COUNT</th>
        	 <th>ENCODED LINK</th>
        	 <th>DELETE</th>
-       	 
        </tr>			
 	</thead>
   <%current_user.links.each do |linke|%>
-	<tbody>
-	   <tr>
-	   	 <th><%=linke.link_name.truncate(40)%></th> 
-         <th><%=linke.link_click_count%></th>
-         <th><%=link_to linke.encoded_link, linke.encoded_link%></th>
-         <th><%=link_to "DELETE",link_path(linke.id),method: :delete,remote: true%></th>
-       </tr> 
-	</tbody>
+	<div class = "linke_List">
+	   <tbody>
+		  <tr>
+		   	<th><%=linke.link_name.truncate(40)%></th> 
+	        <th><%=linke.link_click_count%></th>
+	        <th><%=link_to "TAKE THE LINK: localhost:3000/#{linke.encoded_link}", linke.encoded_link%></th>
+	        <th><%=link_to "DELETE",link_path(linke.id),method: :delete,remote: true%></th>
+	      </tr> 
+	   </tbody>
+    </div>
   <%end%>	
 </table>
