@@ -1,0 +1,4 @@
+<%= current_user.links.each do |link| %>
+       <li><%=link_to link.link_name , link.encoded_link %></li>
+       <li><%=link_to  "DELETE", link_path(link.id), method: :delete %></li>
+<%end%> 

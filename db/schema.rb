@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180303071426) do
+ActiveRecord::Schema.define(version: 20180304040906) do
 
   create_table "devices", force: :cascade do |t|
     t.string "device_name"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20180303071426) do
 
   create_table "links", force: :cascade do |t|
     t.string "link_name"
-    t.integer "user_id"
     t.string "encoded_link"
     t.integer "link_click_count"
     t.datetime "created_at", null: false
@@ -29,10 +28,12 @@ ActiveRecord::Schema.define(version: 20180303071426) do
 
   create_table "logs", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "os_id"
     t.integer "device_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "operating_system_id"
+    t.string "browser"
+    t.integer "link_id"
   end
 
   create_table "operating_systems", force: :cascade do |t|

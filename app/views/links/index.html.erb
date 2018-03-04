@@ -1,3 +1,21 @@
-<%current_user.links.each do |linke|%>
-  <%=link_to linke.link_name,linke.encoded_link%>
-<% end%>
+<table border="40">
+	<thead>
+       <tr>
+       	 <th>LINK NAME</th>
+       	 <th>LINK CLICK COUNT</th>
+       	 <th>ENCODED LINK</th>
+       	 <th>DELETE</th>
+       	 
+       </tr>			
+	</thead>
+  <%current_user.links.each do |linke|%>
+	<tbody>
+	   <tr>
+	   	 <th><%=linke.link_name.truncate(40)%></th> 
+         <th><%=linke.link_click_count%></th>
+         <th><%=link_to linke.encoded_link, linke.encoded_link%></th>
+         <th><%=link_to "DELETE",link_path(linke.id),method: :delete,remote: true%></th>
+       </tr> 
+	</tbody>
+  <%end%>	
+</table>

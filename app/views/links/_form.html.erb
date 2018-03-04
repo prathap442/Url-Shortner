@@ -11,9 +11,12 @@
   <%= f.hidden_field :encoded_link,value: ""%>
   <%= f.submit "Submit the link", id:"submit_link_details"%>
 <% end%>
-<%current_user.links.each do |link|%>
-     <li> <%= link_to link.link_name,link_path(link.encoded_link)%></li>
-<%end%>
+<div class="current_user_link_list">
+    <%current_user.links.each do |link|%>
+         <li> <%= link_to link.link_name,"/#{link.encoded_link}"%></li>
+              <%= link_to "DELETE",link_path(link.id),method: :delete,remote: true%></li>
+    <%end%>
+</div>
 
 <script>
 	linkNameHandle= document.getElementById('link_link_name');
