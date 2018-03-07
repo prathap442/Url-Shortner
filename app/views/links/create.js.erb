@@ -1,8 +1,8 @@
 <%if(@link.errors.any?)%>
    $('#linkList').html();
    $('#linkErrors').append('<%=escape_javascript render 'errors'%>');
+   $('#new_link').reset();
 <%else%>
-   $('#linkErrors').html()
-   $('#current_user_link_list').append('<%=escape_javascript render 'link'%>');
-  
+   $('#linkErrors').html();
+   $('#current_user_link_list').append('<%=escape_javascript render 'link'%>');  
 <%end%> 
